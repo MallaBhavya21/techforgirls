@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech For Girls Registration</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 Tech For Girls: Registration</h1>
+
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number </label>
+        <input
+  type="text"
+  id="phone"
+  name="phone"
+  maxlength="10"
+  pattern="\d{10}"
+  inputmode="numeric"
+  required
+/>
+
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email ID</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="college">College / Department</label>
+        <input type="text" id="college" name="college" required />
+      </div>
+
+      <div class="form-group">
+        <label for="screenshot">Upload Screenshot (Resume/Photo)</label>
+        <input type="file" id="screenshot" name="screenshot" accept="image/*,.pdf" required />
+      </div>
+
+      <div class="form-group">
+        <button type="button" id="shareBtn">📲 Share on WhatsApp</button>
+        <p id="shareCount">Click count: 0/5</p>
+        <p id="shareStatus" class="status-message"></p>
+      </div>
+
+      <button type="submit" id="submitBtn">Submit Registration</button>
+    </form>
+
+    <div id="message" class="thank-you-message"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
