@@ -1,4 +1,4 @@
-let shareCount = 0;
+let shareCount = parseInt(localStorage.getItem("shareCount")) || 0;
 const maxShares = 5;
 
 const form = document.getElementById("registrationForm");
@@ -7,37 +7,49 @@ const shareBtn = document.getElementById("shareBtn");
 const shareCountDisplay = document.getElementById("shareCount");
 const shareStatus = document.getElementById("shareStatus");
 const messageDiv = document.getElementById("message");
-
 const phoneInput = document.getElementById("phone");
 
-// Prevent non-digit input in phone field
-phoneInput.addEventListener("input", function () {
-  this.value = this.value.replace(/\D/g, "");
-});
-
-// Check if already submitted
+// ✅ Update UI on page load
 window.onload = function () {
+  // Prevent re-submission
   if (localStorage.getItem("submitted") === "true") {
     form.style.display = "none";
     messageDiv.innerHTML = "🎉 You have already submitted. Thanks for joining Tech For Girls!";
   }
+
+  // Restore share count and UI
+  shareCountDisplay.textContent = `Click count: ${shareCount}/${maxShares}`;
+  if (shareCount >= maxShares) {
+    shareStatus.textContent = "✅ Sharing complete. Please continue.";
+    submitBtn.disabled = false;
+  }
 };
 
-// WhatsApp Share Button Logic
+// 🚫 Prevent non-digit input in phone number field
+phoneInput.addEventListener("input", function () {
+  this.value = this.value.replace(/\D/g, "");
+});
+
+// ▶️ WhatsApp Share Button Logic
 shareBtn.addEventListener("click", function () {
   if (shareCount < maxShares) {
     shareCount++;
+    localStorage.setItem("shareCount", shareCount);
+
     const message = "Hey Buddy, Join Tech For Girls Community!";
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
+
     shareCountDisplay.textContent = `Click count: ${shareCount}/${maxShares}`;
+
     if (shareCount === maxShares) {
       shareStatus.textContent = "✅ Sharing complete. Please continue.";
+      submitBtn.disabled = false;
     }
   }
 });
 
-// Submit Form
+// 📨 Submit Form Handler
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
@@ -46,12 +58,14 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
+  // Collect form data
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const email = document.getElementById("email").value.trim();
   const college = document.getElementById("college").value.trim();
   const screenshot = document.getElementById("screenshot").files[0];
 
+  // Validate fields
   if (!name || !phone || !email || !college || !screenshot) {
     alert("Please fill out all fields and upload a screenshot.");
     return;
@@ -62,10 +76,9 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
-  // Upload file to some storage (This is a placeholder. You can use Firebase, Imgur, or skip and send base64.)
-  const fileUrl = "https://example.com/fake-uploaded-image.jpg"; // Replace with real uploaded file URL logic
+  // Replace this with real upload logic if needed
+  const fileUrl = "https://example.com/fake-uploaded-image.jpg";
 
-  // Prepare data for Google Sheets
   const data = {
     name,
     phone,
@@ -75,8 +88,7 @@ form.addEventListener("submit", async function (e) {
   };
 
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbyHZlvFP7I97cgInD7wAalp2kL-0CXzjk_-sMc6TrvXlgvZJBPDVOg_XHwI-FeedTGvPA/exec
-", {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbyHZlvFP7I97cgInD7wAalp2kL-0CXzjk_-sMc6TrvXlgvZJBPDVOg_XHwI-FeedTGvPA/exec", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -87,6 +99,7 @@ form.addEventListener("submit", async function (e) {
     const result = await response.json();
     if (result.result === "success") {
       localStorage.setItem("submitted", "true");
+      localStorage.removeItem("shareCount"); // Optional: reset for future
       form.reset();
       form.style.display = "none";
       messageDiv.innerHTML = "🎉 Your submission has been recorded. Thanks for being part of Tech for Girls!";
@@ -98,3 +111,4 @@ form.addEventListener("submit", async function (e) {
     console.error(err);
   }
 });
+
