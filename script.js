@@ -76,30 +76,32 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
-  // Replace this with real upload logic if needed
+  // You can upload the file to a real image/file hosting service and get the URL
+  // For now, we'll use a placeholder
   const fileUrl = "https://example.com/fake-uploaded-image.jpg";
 
   const data = {
-    name,
-    phone,
-    email,
-    college,
-    fileUrl,
+    "Full Name": name,
+    "Phone No": phone,
+    "Email ID": email,
+    "College/Department": college,
+    "File upload": fileUrl,
   };
 
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbzvUB5_WUaK20N3RMj6_sn2TZO5C299_bKKV1alWim1ulLMqm5kDEJkDBC8s2JSs5oU1g/exec", {
+    const response = await fetch("https://sheetdb.io/api/v1/iggsubso18355", {
       method: "POST",
-      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({ data: [data] }),
     });
 
     const result = await response.json();
-    if (result.result === "success") {
+
+    if (result.created) {
       localStorage.setItem("submitted", "true");
-      localStorage.removeItem("shareCount"); // Optional: reset for future
+      localStorage.removeItem("shareCount");
       form.reset();
       form.style.display = "none";
       messageDiv.innerHTML = "🎉 Your submission has been recorded. Thanks for being part of Tech for Girls!";
@@ -111,4 +113,3 @@ form.addEventListener("submit", async function (e) {
     console.error(err);
   }
 });
-
