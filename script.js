@@ -11,13 +11,11 @@ const phoneInput = document.getElementById("phone");
 
 // ✅ Update UI on page load
 window.onload = function () {
-  // Prevent re-submission
   if (localStorage.getItem("submitted") === "true") {
     form.style.display = "none";
     messageDiv.innerHTML = "🎉 You have already submitted. Thanks for joining Tech For Girls!";
   }
 
-  // Restore share count and UI
   shareCountDisplay.textContent = `Click count: ${shareCount}/${maxShares}`;
   if (shareCount >= maxShares) {
     shareStatus.textContent = "✅ Sharing complete. Please continue.";
@@ -58,14 +56,13 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
-  // Collect form data
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const email = document.getElementById("email").value.trim();
   const college = document.getElementById("college").value.trim();
-  const screenshot = document.getElementById("screenshot").files[0];
+  const fileInput = document.getElementById("screenshot");
+  const screenshot = fileInput.files[0];
 
-  // Validate fields
   if (!name || !phone || !email || !college || !screenshot) {
     alert("Please fill out all fields and upload a screenshot.");
     return;
@@ -76,16 +73,15 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
-  // You can upload the file to a real image/file hosting service and get the URL
-  // For now, we'll use a placeholder
-  const fileUrl = "https://example.com/fake-uploaded-image.jpg";
+  // ✅ Get only file name (not full file path)
+  const fileUrl = screenshot.name;
 
   const data = {
     "Full Name": name,
     "Phone No": phone,
     "Email ID": email,
     "College/Department": college,
-    "File upload": fileUrl,
+    "File URL": fileUrl,
   };
 
   try {
