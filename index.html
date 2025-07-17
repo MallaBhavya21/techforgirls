@@ -2,48 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tech For Girls Registration</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="container">
     <h1>🚀 Tech For Girls: Registration</h1>
 
-    <form id="registrationForm">
+    <form id="registrationForm" enctype="multipart/form-data">
       <div class="form-group">
         <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" required />
+        <input type="text" id="name" name="name" required autocomplete="name" />
       </div>
     
       <div class="form-group">
-        <label for="phone">Phone Number </label>
+        <label for="phone">Phone Number</label>
         <input
-  type="text"
-  id="phone"
-  name="phone"
-  maxlength="10"
-  pattern="\d{10}"
-  inputmode="numeric"
-  required
-/>
-
+          type="text"
+          id="phone"
+          name="phone"
+          maxlength="10"
+          pattern="\d{10}"
+          inputmode="numeric"
+          required
+          autocomplete="tel"
+          placeholder="10-digit number"
+        />
       </div>
 
       <div class="form-group">
         <label for="email">Email ID</label>
-        <input type="email" id="email" name="email" required />
+        <input type="email" id="email" name="email" required autocomplete="email" />
       </div>
 
       <div class="form-group">
         <label for="college">College / Department</label>
-        <input type="text" id="college" name="college" required />
+        <input type="text" id="college" name="college" required autocomplete="organization" />
       </div>
 
       <div class="form-group">
         <label for="screenshot">Upload Screenshot (Resume/Photo)</label>
-        <input type="file" id="screenshot" name="screenshot" accept="image/*,.pdf" required />
+        <input
+          type="file"
+          id="screenshot"
+          name="screenshot"
+          accept="image/*,.pdf"
+          required
+        />
       </div>
 
       <div class="form-group">
@@ -52,10 +59,8 @@
         <p id="shareStatus" class="status-message"></p>
       </div>
 
-      <button type="submit" id="submitBtn">Submit Registration</button>
+      <button type="submit" id="submitBtn" disabled>Submit Registration</button>
     </form>
-    <div id="registrationData"></div>
-
 
     <div id="message" class="thank-you-message"></div>
   </div>
