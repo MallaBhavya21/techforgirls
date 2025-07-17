@@ -9,26 +9,31 @@ const shareStatus = document.getElementById("shareStatus");
 const messageDiv = document.getElementById("message");
 const phoneInput = document.getElementById("phone");
 
-// ✅ Update UI on page load
+// Update UI on page load
 window.onload = function () {
+  // **Remove this block that hides the form after submission**
+  /*
   if (localStorage.getItem("submitted") === "true") {
     form.style.display = "none";
     messageDiv.innerHTML = "🎉 You have already submitted. Thanks for joining Tech For Girls!";
   }
+  */
 
   shareCountDisplay.textContent = `Click count: ${shareCount}/${maxShares}`;
   if (shareCount >= maxShares) {
     shareStatus.textContent = "✅ Sharing complete. Please continue.";
     submitBtn.disabled = false;
+  } else {
+    submitBtn.disabled = true;
   }
 };
 
-// 🚫 Prevent non-digit input in phone number field
+// Prevent non-digit input in phone number field
 phoneInput.addEventListener("input", function () {
   this.value = this.value.replace(/\D/g, "");
 });
 
-// ▶️ WhatsApp Share Button Logic
+// WhatsApp Share Button Logic
 shareBtn.addEventListener("click", function () {
   if (shareCount < maxShares) {
     shareCount++;
@@ -47,7 +52,7 @@ shareBtn.addEventListener("click", function () {
   }
 });
 
-// 📨 Submit Form Handler
+// Submit Form Handler
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
@@ -73,7 +78,7 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
-  // ✅ Get only file name (not full file path)
+  // Get only file name (not full file path)
   const fileUrl = screenshot.name;
 
   const data = {
@@ -96,11 +101,14 @@ form.addEventListener("submit", async function (e) {
     const result = await response.json();
 
     if (result.created) {
-      localStorage.setItem("submitted", "true");
-      localStorage.removeItem("shareCount");
+      // **Reset form and UI for next submission**
       form.reset();
-      form.style.display = "none";
       messageDiv.innerHTML = "🎉 Your submission has been recorded. Thanks for being part of Tech for Girls!";
+      shareCount = 0;
+      localStorage.removeItem("shareCount");
+      shareCountDisplay.textContent = `Click count: 0/${maxShares}`;
+      shareStatus.textContent = "";
+      submitBtn.disabled = true;
     } else {
       alert("Something went wrong. Try again.");
     }
