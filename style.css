@@ -1,108 +1,140 @@
-<style>
-  /* Basic Reset */
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tech For Girls Registration</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f7f9fc;
-    color: #333;
-    padding: 20px;
-  }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f9fc;
+      color: #333;
+      padding: 20px;
+    }
 
-  h1 {
-    font-size: 2.2rem;
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #1e3a8a;
-  }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #1e3a8a;
+    }
 
-  form {
-    background: white;
-    padding: 25px 30px;
-    max-width: 480px;
-    margin: auto;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-  }
+    form {
+      background: white;
+      padding: 25px 30px;
+      max-width: 480px;
+      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
 
-  label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #555;
-  }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+    }
 
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="file"] {
-    width: 100%;
-    padding: 10px 14px;
-    margin-bottom: 18px;
-    border: 1.5px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-  }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="file"] {
+      width: 100%;
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      border: 1.5px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
 
-  input[type="text"]:focus,
-  input[type="email"]:focus,
-  input[type="tel"]:focus,
-  input[type="file"]:focus {
-    border-color: #2563eb;
-    outline: none;
-  }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="file"]:focus {
+      border-color: #2563eb;
+      outline: none;
+    }
 
-  button {
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-  }
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
 
-  button:hover:not(:disabled) {
-    background-color: #1e40af;
-  }
+    button:hover:not(:disabled) {
+      background-color: #1e40af;
+    }
 
-  button:disabled {
-    background-color: #94a3b8;
-    cursor: not-allowed;
-  }
+    button:disabled {
+      background-color: #94a3b8;
+      cursor: not-allowed;
+    }
 
-  .click-count {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #555;
-  }
+    .click-count {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #555;
+    }
 
-  /* Style for WhatsApp share button */
-  .whatsapp-btn {
-    background-color: #25D366;
-    border: none;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    margin-bottom: 20px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: background-color 0.3s ease;
-  }
+    .whatsapp-btn {
+      background-color: #25D366;
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.3s ease;
+    }
 
-  .whatsapp-btn:hover {
-    background-color: #128c43;
-  }
-</style>
+    .whatsapp-btn:hover {
+      background-color: #128c43;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 Tech For Girls: Registration</h1>
+
+  <form>
+    <label for="fullName">Full Name</label>
+    <input type="text" id="fullName" name="fullName" />
+
+    <label for="phoneNumber">Phone Number</label>
+    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="10-digit number" />
+
+    <label for="email">Email ID</label>
+    <input type="email" id="email" name="email" />
+
+    <label for="collegeDept">College / Department</label>
+    <input type="text" id="collegeDept" name="collegeDept" />
+
+    <label for="uploadFile">Upload Screenshot (Resume/Photo)</label>
+    <input type="file" id="uploadFile" name="uploadFile" />
+
+    <button type="button" class="whatsapp-btn">📊 Share on WhatsApp</button>
+
+    <div class="click-count">Click count: 0/5</div>
+
+    <button type="submit" disabled>Submit Registration</button>
+  </form>
+</body>
+</html>
