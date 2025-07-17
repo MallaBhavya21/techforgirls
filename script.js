@@ -88,7 +88,7 @@ form.addEventListener("submit", async function (e) {
   };
 
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbyHZlvFP7I97cgInD7wAalp2kL-0CXzjk_-sMc6TrvXlgvZJBPDVOg_XHwI-FeedTGvPA/exec", {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzvUB5_WUaK20N3RMj6_sn2TZO5C299_bKKV1alWim1ulLMqm5kDEJkDBC8s2JSs5oU1g/exec", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
