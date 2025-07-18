@@ -17,11 +17,12 @@ window.onload = function () {
   }
 };
 
-// Only allow digits in phone field
+// Allow only digits in phone
 phoneInput.addEventListener("input", function () {
   this.value = this.value.replace(/\D/g, "");
 });
 
+// WhatsApp share button
 shareBtn.addEventListener("click", function () {
   if (shareCount < maxShares) {
     shareCount++;
@@ -40,6 +41,7 @@ shareBtn.addEventListener("click", function () {
   }
 });
 
+// Submit form handler
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
@@ -56,7 +58,7 @@ form.addEventListener("submit", async function (e) {
   const file = fileInput.files[0];
 
   if (!name || !phone || !email || !college || !file) {
-    alert("Please fill out all fields and upload a file.");
+    alert("Please fill out all fields and upload a screenshot.");
     return;
   }
 
@@ -65,7 +67,7 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
-  const fileName = file.name; // ✅ Extract only the file name
+  const fileName = file.name;
 
   const data = {
     "Full Name": name,
