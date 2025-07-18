@@ -9,7 +9,7 @@ const shareStatus = document.getElementById("shareStatus");
 const messageDiv = document.getElementById("message");
 const phoneInput = document.getElementById("phone");
 
-// ✅ Update UI on page load (no submission lock)
+// ✅ Update UI on page load
 window.onload = function () {
   shareCountDisplay.textContent = `Click count: ${shareCount}/${maxShares}`;
   if (shareCount >= maxShares) {
@@ -18,7 +18,7 @@ window.onload = function () {
   }
 };
 
-// 🚫 Prevent non-digit input in phone number field
+// 🚫 Restrict phone input to digits only
 phoneInput.addEventListener("input", function () {
   this.value = this.value.replace(/\D/g, "");
 });
@@ -55,11 +55,10 @@ form.addEventListener("submit", async function (e) {
   const phone = document.getElementById("phone").value.trim();
   const email = document.getElementById("email").value.trim();
   const college = document.getElementById("college").value.trim();
-  const fileInput = document.getElementById("screenshot");
-  const screenshot = fileInput.files[0];
+  const fileUrlInput = document.getElementById("screenshot").value.trim();
 
-  if (!name || !phone || !email || !college || !screenshot) {
-    alert("Please fill out all fields and upload a screenshot.");
+  if (!name || !phone || !email || !college || !fileUrlInput) {
+    alert("Please fill out all fields.");
     return;
   }
 
@@ -68,15 +67,18 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
-  // ✅ Get only file name (not full file path)
-  const fileUrl = screenshot.name;
+  // ✅ Extract only file name from Google Drive link
+  let fileName = fileUrlInput.split('/').pop().split('?')[0];
+  if (!fileName.includes('.')) {
+    fileName = 'drive_file_link';
+  }
 
   const data = {
     "Full Name": name,
     "Phone No": phone,
     "Email ID": email,
     "College/Department": college,
-    "File URL": fileUrl,
+    "File URL": fileName,
   };
 
   try {
@@ -91,7 +93,6 @@ form.addEventListener("submit", async function (e) {
     const result = await response.json();
 
     if (result.created) {
-      // 🎯 Reset everything for next registration
       shareCount = 0;
       localStorage.removeItem("shareCount");
       submitBtn.disabled = true;
