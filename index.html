@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tech For Girls Registration</title>
+
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 </head>
@@ -16,7 +17,7 @@
         <label for="name">Full Name</label>
         <input type="text" id="name" name="name" required autocomplete="name" />
       </div>
-    
+
       <div class="form-group">
         <label for="phone">Phone Number</label>
         <input
@@ -43,14 +44,8 @@
       </div>
 
       <div class="form-group">
-        <label for="screenshot">Google Drive Link (Resume/Photo)</label>
-        <input
-          type="url"
-          id="screenshot"
-          name="screenshot"
-          placeholder="https://drive.google.com/..."
-          required
-        />
+        <label for="screenshot">Upload Screenshot / Resume</label>
+        <input type="file" id="screenshot" name="screenshot" required />
       </div>
 
       <div class="form-group">
