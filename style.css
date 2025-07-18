@@ -1,9 +1,9 @@
-/* === Global Styling === */
+/* === Reset & Global === */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
@@ -15,45 +15,43 @@ body {
   padding: 40px 20px;
 }
 
-/* === Container === */
-form {
+/* === Container Styling === */
+.container {
   background: #fff;
+  padding: 40px 30px;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  padding: 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
-  transition: transform 0.3s ease;
-}
-
-form:hover {
-  transform: scale(1.01);
+  max-width: 420px;
+  animation: fadeIn 0.8s ease-in-out;
 }
 
 /* === Heading === */
 h1 {
+  font-size: 26px;
+  color: #1a237e;
   text-align: center;
-  color: #283593;
-  margin-bottom: 25px;
-  font-size: 28px;
+  margin-bottom: 30px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 10px;
 }
 
-/* === Inputs === */
+/* === Form Elements === */
+.form-group {
+  margin-bottom: 20px;
+}
+
 label {
   display: block;
   font-weight: 600;
   color: #444;
-  margin-top: 15px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 input[type="text"],
 input[type="email"],
-input[type="tel"],
 input[type="file"] {
   width: 100%;
   padding: 12px;
@@ -62,61 +60,76 @@ input[type="file"] {
   transition: border 0.3s;
 }
 
-input:focus {
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="file"]:focus {
   border-color: #3f51b5;
   outline: none;
 }
 
 /* === Buttons === */
-button,
-input[type="submit"] {
+button {
   width: 100%;
   padding: 12px;
-  margin-top: 25px;
   background: linear-gradient(to right, #6a11cb, #2575fc);
   color: white;
   border: none;
-  border-radius: 12px;
-  font-size: 16px;
+  border-radius: 10px;
+  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: transform 0.2s ease, background 0.3s ease;
 }
 
-button:hover,
-input[type="submit"]:hover {
-  background: linear-gradient(to right, #2575fc, #6a11cb);
+button:hover {
   transform: translateY(-2px);
+  background: linear-gradient(to right, #2575fc, #6a11cb);
 }
 
-/* === WhatsApp Button === */
-#whatsapp-btn {
+/* === WhatsApp Share Button Specific === */
+#shareBtn {
   background-color: #25d366;
-  margin-top: 15px;
-  text-align: center;
-  text-decoration: none;
-  padding: 12px;
   color: white;
-  font-weight: bold;
-  border-radius: 10px;
-  display: block;
-  transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
-#whatsapp-btn:hover {
+#shareBtn:hover {
   background-color: #1ebe5d;
 }
 
-/* === Click Count === */
-#click-count {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #666;
+/* === Click Count and Status === */
+#shareCount,
+.status-message {
   text-align: center;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #555;
 }
 
-/* === Disabled Submit === */
-#submit-btn:disabled {
+/* === Submit Button Disabled === */
+#submitBtn:disabled {
   background: #ccc;
   cursor: not-allowed;
 }
+
+/* === Thank You Message === */
+.thank-you-message {
+  margin-top: 25px;
+  color: #2e7d32;
+  font-weight: 600;
+  text-align: center;
+  display: none;
+}
+
+/* === Animation === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
