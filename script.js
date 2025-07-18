@@ -9,7 +9,6 @@ const shareStatus = document.getElementById("shareStatus");
 const messageDiv = document.getElementById("message");
 const phoneInput = document.getElementById("phone");
 
-// ✅ Update UI on page load
 window.onload = function () {
   shareCountDisplay.textContent = `Click count: ${shareCount}/${maxShares}`;
   if (shareCount >= maxShares) {
@@ -18,12 +17,11 @@ window.onload = function () {
   }
 };
 
-// 🚫 Restrict phone input to digits only
+// Only allow digits in phone field
 phoneInput.addEventListener("input", function () {
   this.value = this.value.replace(/\D/g, "");
 });
 
-// ▶️ WhatsApp Share Button Logic
 shareBtn.addEventListener("click", function () {
   if (shareCount < maxShares) {
     shareCount++;
@@ -42,7 +40,6 @@ shareBtn.addEventListener("click", function () {
   }
 });
 
-// 📨 Submit Form Handler
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
@@ -55,10 +52,11 @@ form.addEventListener("submit", async function (e) {
   const phone = document.getElementById("phone").value.trim();
   const email = document.getElementById("email").value.trim();
   const college = document.getElementById("college").value.trim();
-  const fileUrlInput = document.getElementById("screenshot").value.trim();
+  const fileInput = document.getElementById("screenshot");
+  const file = fileInput.files[0];
 
-  if (!name || !phone || !email || !college || !fileUrlInput) {
-    alert("Please fill out all fields.");
+  if (!name || !phone || !email || !college || !file) {
+    alert("Please fill out all fields and upload a file.");
     return;
   }
 
@@ -67,11 +65,7 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
-  // ✅ Extract only file name from Google Drive link
-  let fileName = fileUrlInput.split('/').pop().split('?')[0];
-  if (!fileName.includes('.')) {
-    fileName = 'drive_file_link';
-  }
+  const fileName = file.name; // ✅ Extract only the file name
 
   const data = {
     "Full Name": name,
