@@ -1,35 +1,64 @@
-/* === Reset & Global === */
+/* === Reset & Base === */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
   min-height: 100vh;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* === Container Styling === */
+/* === Decorative Background Circles === */
+body::before,
+body::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.2;
+  z-index: 0;
+}
+
+body::before {
+  width: 400px;
+  height: 400px;
+  background: #6a11cb;
+  top: -100px;
+  right: -100px;
+}
+
+body::after {
+  width: 300px;
+  height: 300px;
+  background: #2575fc;
+  bottom: -100px;
+  left: -100px;
+}
+
+/* === Container === */
 .container {
-  background: #fff;
+  background: #ffffff;
   padding: 40px 30px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
   width: 100%;
   max-width: 420px;
-  animation: fadeIn 0.8s ease-in-out;
+  z-index: 1;
+  animation: slideUp 0.8s ease-out;
 }
 
 /* === Heading === */
 h1 {
-  font-size: 26px;
-  color: #1a237e;
+  font-size: 28px;
+  color: #6a11cb;
   text-align: center;
   margin-bottom: 30px;
   display: flex;
@@ -38,7 +67,7 @@ h1 {
   gap: 10px;
 }
 
-/* === Form Elements === */
+/* === Form Fields === */
 .form-group {
   margin-bottom: 20px;
 }
@@ -46,8 +75,8 @@ h1 {
 label {
   display: block;
   font-weight: 600;
-  color: #444;
   margin-bottom: 8px;
+  color: #333;
 }
 
 input[type="text"],
@@ -56,14 +85,12 @@ input[type="file"] {
   width: 100%;
   padding: 12px;
   border-radius: 10px;
-  border: 1.5px solid #ccc;
-  transition: border 0.3s;
+  border: 2px solid #ddd;
+  transition: border-color 0.3s ease;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="file"]:focus {
-  border-color: #3f51b5;
+input:focus {
+  border-color: #6a11cb;
   outline: none;
 }
 
@@ -74,7 +101,7 @@ button {
   background: linear-gradient(to right, #6a11cb, #2575fc);
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
@@ -82,22 +109,20 @@ button {
 }
 
 button:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(to right, #2575fc, #6a11cb);
+  transform: scale(1.03);
 }
 
-/* === WhatsApp Share Button Specific === */
+/* === WhatsApp Button === */
 #shareBtn {
-  background-color: #25d366;
-  color: white;
+  background: #25d366;
   margin-top: 10px;
 }
 
 #shareBtn:hover {
-  background-color: #1ebe5d;
+  background: #1ebe5d;
 }
 
-/* === Click Count and Status === */
+/* === Info Text === */
 #shareCount,
 .status-message {
   text-align: center;
@@ -106,7 +131,7 @@ button:hover {
   color: #555;
 }
 
-/* === Submit Button Disabled === */
+/* === Disabled Submit === */
 #submitBtn:disabled {
   background: #ccc;
   cursor: not-allowed;
@@ -121,15 +146,14 @@ button:hover {
   display: none;
 }
 
-/* === Animation === */
-@keyframes fadeIn {
+/* === Slide-up Animation === */
+@keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
