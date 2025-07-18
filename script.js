@@ -1,47 +1,3 @@
-let shareCount = parseInt(localStorage.getItem("shareCount")) || 0;
-const maxShares = 5;
-
-const form = document.getElementById("registrationForm");
-const submitBtn = document.getElementById("submitBtn");
-const shareBtn = document.getElementById("shareBtn");
-const shareCountDisplay = document.getElementById("shareCount");
-const shareStatus = document.getElementById("shareStatus");
-const messageDiv = document.getElementById("message");
-const phoneInput = document.getElementById("phone");
-
-window.onload = function () {
-  shareCountDisplay.textContent = `Click count: ${shareCount}/${maxShares}`;
-  if (shareCount >= maxShares) {
-    shareStatus.textContent = "✅ Sharing complete. Please continue.";
-    submitBtn.disabled = false;
-  }
-};
-
-// Allow only digits in phone
-phoneInput.addEventListener("input", function () {
-  this.value = this.value.replace(/\D/g, "");
-});
-
-// WhatsApp share button
-shareBtn.addEventListener("click", function () {
-  if (shareCount < maxShares) {
-    shareCount++;
-    localStorage.setItem("shareCount", shareCount);
-
-    const message = "Hey Buddy, Join Tech For Girls Community!";
-    const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
-
-    shareCountDisplay.textContent = `Click count: ${shareCount}/${maxShares}`;
-
-    if (shareCount === maxShares) {
-      shareStatus.textContent = "✅ Sharing complete. Please continue.";
-      submitBtn.disabled = false;
-    }
-  }
-});
-
-// Submit form handler
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
@@ -68,39 +24,44 @@ form.addEventListener("submit", async function (e) {
   }
 
   const fileName = file.name;
+  console.log("DEBUG: extracted file name:", fileName);
 
   const data = {
     "Full Name": name,
     "Phone No": phone,
     "Email ID": email,
     "College/Department": college,
-    "File URL": fileName,
+    "File URL": fileName,  // column in your sheet
   };
 
   try {
     const response = await fetch("https://sheetdb.io/api/v1/iggsubso18355", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ data: [data] }),
     });
 
     const result = await response.json();
+    console.log("DEBUG: sheetdb result:", result);
 
     if (result.created) {
+      // successful submission block
       shareCount = 0;
       localStorage.removeItem("shareCount");
       submitBtn.disabled = true;
       form.reset();
       shareCountDisplay.textContent = `Click count: 0/${maxShares}`;
       shareStatus.textContent = "";
-      messageDiv.innerHTML = "🎉 Your submission has been recorded. You can register again!";
+
+      // ✅ Show Z thank you message
+      messageDiv.textContent = "🎉 Your submission has been recorded. You can register again!";
+      messageDiv.style.display = "block";
+
     } else {
       alert("Something went wrong. Try again.");
     }
   } catch (err) {
+    console.error("Submission error:", err);
     alert("Error submitting the form. Check console.");
-    console.error(err);
   }
 });
